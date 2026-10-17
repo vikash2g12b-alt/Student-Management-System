@@ -1,215 +1,154 @@
-# Student Management System with File Handling in C
+# Student Management System in C
 
-A beginner-friendly, menu-driven **Student Management System** developed in C with persistent storage using standard **File Handling**. This project is specifically designed for first-year B.Tech students (Cyber Security / Computer Science) to master core programming fundamentals including:
-- **Structures (`struct`)** and **Arrays of Structures**
-- **File Handling in C (`fopen`, `fprintf`, `fscanf`, `fclose`)**
-- **Data Persistence** across program executions
-- **Input Validation & Error Handling** (preventing duplicate keys, range checking, buffer safety)
-- **Modular Function Design**
+A beginner-friendly, menu-driven Student Management System built using C. This project demonstrates core programming concepts such as structures, arrays, modular functions, input validation, and file handling.
 
----
+Student records are stored in a text file so that data can be loaded again when the program restarts.
 
-## 📌 Features
+## Features
 
-### Core Management Features
-1. **Add Student**:
-   - Takes input for Roll Number, Full Name (supports spaces), and Marks.
-   - Validates that marks are between `0` and `100`.
-   - Prevents duplicate roll numbers.
-   - Enforces maximum capacity of `100` students (`MAX_STUDENTS`).
-   - Automatically saves all records to `students.txt` upon successful addition.
+### 1. Add Student
+- Add a student's roll number, full name, and marks.
+- Supports names containing spaces.
+- Validates marks between `0` and `100`.
+- Prevents duplicate roll numbers.
+- Supports a maximum of 100 students.
+- Saves records to `students.txt`.
 
-2. **View All Students**:
-   - Displays all loaded student records in a clean, tabular format (`Roll No`, `Name`, `Marks`).
-   - Displays a helpful message if no student records exist.
-   - Displays the total student count.
+### 2. View All Students
+- Displays all student records in a tabular format.
+- Shows the total number of students.
+- Displays a message when no records are available.
 
-3. **Search Student by Roll Number**:
-   - Searches for a student by roll number using linear search.
-   - Displays student name, roll number, and marks if found.
-   - Displays `Student not found.` if the roll number does not match.
+### 3. Search Student
+- Searches for a student using their roll number.
+- Displays the student's details when a match is found.
+- Displays a message if the student does not exist.
 
-4. **Exit Program**:
-   - Displays a friendly exit message and terminates safely.
+### 4. File Handling
+- Loads saved records when the program starts.
+- Saves all current records when a student is added.
+- Handles a missing data file on the first run.
+- Validates loaded records and reports file errors.
 
-### File Handling & Persistence Features
-1. **Automatic Data Loading (`loadStudents`)**:
-   - Automatically reads saved records from `students.txt` when the program starts.
-   - Restores student records and updates `studentCount`.
-   - Handles the case where `students.txt` does not exist on the first run without crashing.
-   - Safely parses records and handles malformed or incomplete records without crashing.
-   - Validates loaded records against duplicate roll numbers, marks range, and capacity limits.
+## Technologies Used
 
-2. **Automatic Data Saving (`saveStudents`)**:
-   - Automatically saves all currently loaded student records to `students.txt` whenever a new student is added.
-   - Ensures data safety by writing all current records (not just the new student).
-   - Verifies file open and write operations and reports any failures clearly.
+- **Language:** C
+- **Concepts:** Structures, arrays, functions, loops, conditional statements
+- **File Handling:** `fopen()`, `fscanf()`, `fprintf()`, `fclose()`
+- **Compiler:** GCC
 
----
+## Project Structure
 
-## 📁 File Storage Details (`students.txt`)
+```text
+Student-Management-System/
+├── student_management.c
+├── students.txt
+└── README.md
+```
 
-- **File Name**: `students.txt`
-- **Location**: In the same directory as the executable.
-- **Format**: Pipe-delimited plain text (`<RollNumber>|<Name>|<Marks>`), one record per line.
-- **Example content**:
-  ```text
-  101|Rahul Sharma|85.00
-  102|Priya Verma|92.50
-  ```
+`student_management.exe` may be generated locally when you compile the program. You do not need to commit the executable to GitHub.
 
----
+## Requirements
 
-## 📚 Understanding File Handling in C
+- GCC compiler
+- VS Code or another code editor
+- Terminal or command prompt
 
-Standard C file I/O functions from `<stdio.h>` are used for persistent storage:
+Check whether GCC is installed:
 
-| Function | Purpose in this Project |
-| :--- | :--- |
-| `fopen()` | Opens a file stream with a specified mode: `"r"` (read mode in `loadStudents`) or `"w"` (write mode in `saveStudents`). Returns a `FILE*` pointer, or `NULL` if opening fails. |
-| `fscanf()` | Formatted file input. Reads data from `students.txt` using the format specifier `"%d\|%49[^\|\n]\|%f\n"`. This safely captures names with spaces while isolating delimiters and numbers. |
-| `fprintf()` | Formatted file output. Writes student records line-by-line into `students.txt` in the format `"%d\|%s\|%.2f\n"`. |
-| `fclose()` | Closes an open file stream, ensuring that all cached buffers are flushed to disk and operating system file handles are released. |
-
----
-
-## 💻 Prerequisites
-
-- **C Compiler**: GCC (via MinGW / MSYS2 on Windows, or standard GCC on Linux/macOS).
-- **Terminal**: PowerShell, Command Prompt, or VS Code integrated terminal.
-
-Verify GCC installation:
 ```bash
 gcc --version
 ```
 
----
+## Installation and Execution
 
-## 🛠️ Compilation and Execution Instructions
+### Step 1: Clone the Repository
 
-### Step 1: Open Terminal
-Navigate to the project folder:
-```powershell
-cd "d:\New Era\Student Management System"
+```bash
+git clone https://github.com/vikash2g12b-alt/Student-Management-System.git
+cd Student-Management-System
 ```
 
 ### Step 2: Compile the Program
-Compile using `gcc`:
+
 ```bash
 gcc -Wall -Wextra student_management.c -o student_management
 ```
 
 ### Step 3: Run the Program
-- **On Windows**:
-  ```powershell
-  .\student_management.exe
-  ```
-- **On Linux / macOS**:
-  ```bash
-  ./student_management
-  ```
 
----
+**Windows PowerShell:**
 
-## 🧪 Sample Usage & Test Cases
-
-### Test Case 1: First Run (File Not Found)
-When `students.txt` does not exist yet:
-```text
-Note: File 'students.txt' not found. Starting with an empty student list.
-
-===== STUDENT MANAGEMENT SYSTEM =====
-1. Add Student
-2. View All Students
-3. Search Student by Roll Number
-4. Exit
-=====================================
-Enter your choice: 
+```powershell
+.\student_management.exe
 ```
 
-### Test Case 2: Adding a Student & Saving
-```text
-Enter your choice: 1
+**Linux:**
 
---- Add New Student ---
-Enter Roll Number: 101
-Enter Student Name: Rahul Sharma
-Enter Marks (0 - 100): 88.50
-Success: Student 'Rahul Sharma' (Roll No: 101) added and saved to 'students.txt' successfully!
+```bash
+./student_management
 ```
-*`students.txt` is created with:*
+
+If compilation reports errors, check the compiler output before running the program.
+
+## Data Storage
+
+Student records are stored in `students.txt` using a pipe-delimited format:
+
 ```text
 101|Rahul Sharma|88.50
+102|Priya Verma|92.50
 ```
 
-### Test Case 3: Duplicate Roll Number Check
-```text
-Enter your choice: 1
+Each record contains:
 
---- Add New Student ---
-Enter Roll Number: 101
-Error: A student with Roll Number 101 already exists! Duplicate roll numbers are not allowed.
-```
+- Roll number
+- Student name
+- Marks
 
-### Test Case 4: Re-opening Program (Data Persistence)
-Restart `student_management.exe`:
-```text
-Successfully loaded 1 student record(s) from 'students.txt'.
+The program reads these records at startup and saves updated records when a student is added.
 
-===== STUDENT MANAGEMENT SYSTEM =====
-1. Add Student
-2. View All Students
-3. Search Student by Roll Number
-4. Exit
-=====================================
-Enter your choice: 2
+**Note:** Use sample data only. Do not commit real students' personal information to a public repository.
 
---- All Students List ---
-------------------------------------------------------------
-Roll No    Name                           Marks     
-------------------------------------------------------------
-101        Rahul Sharma                   88.50     
-------------------------------------------------------------
-Total Students: 1
-```
+## Testing Checklist
 
-### Test Case 5: Searching for a Loaded Student
-```text
-Enter your choice: 3
+Test these scenarios before using the program:
 
---- Search Student ---
-Enter Roll Number to search: 101
+- [ ] Add a new student.
+- [ ] View all students.
+- [ ] Search for an existing roll number.
+- [ ] Search for a nonexistent roll number.
+- [ ] Try adding a duplicate roll number.
+- [ ] Try marks below `0` or above `100`.
+- [ ] Restart the program and check whether records persist.
+- [ ] Test the program when `students.txt` does not exist.
+- [ ] Test the maximum student capacity.
 
-Student Found:
------------------------------------
-Roll Number : 101
-Name        : Rahul Sharma
-Marks       : 88.50
------------------------------------
-```
+## Concepts Learned
 
-### Test Case 6: Handling Malformed Records Safely
-If `students.txt` contains invalid lines:
-```text
-Warning: Malformed record found in 'students.txt'. Skipping invalid line.
-Warning: Skipping duplicate Roll No 101 ('Duplicate Roll') found in file.
-Warning: Skipping Roll No 104 ('Invalid Marks') due to invalid marks (120.00).
-Successfully loaded 2 student record(s) from 'students.txt'.
-```
+- Structures and arrays of structures
+- Modular function design
+- File handling in C
+- Data persistence
+- Input validation and error handling
+- Linear search
+- Basic debugging and testing
 
-### Test Case 7: File Write Failure (Read-Only Safety)
-If the file cannot be opened for writing (e.g., permissions or read-only):
-```text
-Error: Unable to open file 'students.txt' for saving!
-Warning: Student 'Test Student' was added to memory, but could NOT be saved to 'students.txt'!
-```
+## Limitations
 
----
+- Maximum capacity is 100 students.
+- Student search uses linear search, with `O(n)` time complexity.
+- Student names cannot contain the pipe character (`|`) because it is used as a field separator.
+- Records are stored in a plain-text file rather than a database.
 
-## ⚠️ Known Limitations
-1. **Fixed Array Capacity**:
-   - The system supports up to 100 students (`MAX_STUDENTS 100`). Records beyond 100 are ignored to prevent buffer overflows.
-2. **Sequential Linear Search**:
-   - Search uses linear search ($O(n)$ time complexity), which is simple and ideal for up to 100 records.
-3. **Delimiter Restriction**:
-   - The pipe symbol (`|`) is used as a delimiter. Student names cannot contain the `|` character.
+## Future Improvements
+
+- Update student details.
+- Delete student records.
+- Sort students by marks or roll number.
+- Replace fixed-size arrays with dynamic memory allocation.
+- Add a database such as SQLite.
+
+## Author
+
+Created as a beginner C programming project to practise programming fundamentals and file handling.
